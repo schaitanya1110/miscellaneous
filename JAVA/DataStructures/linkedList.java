@@ -12,8 +12,9 @@ public class linkedList {
 	node head = null;
 	node tail = null;
 	node current = null;
+	node last = null;
 	int numElements = 0;
-
+	//Add node at front of linked list
 	public void addToFront(int value) {
 
 		node newNode = new node(value);
@@ -23,9 +24,9 @@ public class linkedList {
 			tail = newNode;
 		}
 		this.numElements++;
-		 
-	}
 
+	}
+	// Add Node at back of the Linked List
 	public void addToBack(int value) {
 		node newNode = new node(value);	 
 		tail.next = newNode;
@@ -35,9 +36,9 @@ public class linkedList {
 			head = newNode;
 		}
 		this.numElements++;
-		 
-	}
 
+	}
+	//Add Node at a particular index
 	public void addAtIndex(int ind, int value) {
 		int currcounter = 0;
 		this.current = this.head;
@@ -54,7 +55,7 @@ public class linkedList {
 					this.current = this.current.next;
 					currcounter++;
 				}
-				
+
 				newNode.next = this.current.next;
 				this.current.next = newNode;
 				this.numElements++;
@@ -64,8 +65,28 @@ public class linkedList {
 		}
 	}
 
+	//Delete Node from a particular Index
+	public void delfromIndex(int ind) {
 
-
+		int currcounter = 0;
+		this.current =  this.head;
+		if(ind > this.numElements) {
+			System.out.println("No such Index available");
+		}else if(ind == 0){
+			this.head = this.head.next;
+			this.numElements--;
+		}else {
+			while( currcounter != ind )
+			{
+				this.last = this.current;
+				this.current =  this.current.next;
+				currcounter++;
+			}
+			this.last.next = this.current.next; 
+			this.numElements--;
+		}
+		
+	}
 	public static void main(String[] args) {
 		int count = 0;
 		linkedList newLL = new linkedList();		
@@ -79,6 +100,12 @@ public class linkedList {
 		newLL.addAtIndex(0, 99);
 		newLL.addAtIndex(5, 101);
 		newLL.addAtIndex(5, 102);
+		
+		newLL.delfromIndex(5);
+		newLL.delfromIndex(1);
+		newLL.addAtIndex(5, 102);
+		newLL.addAtIndex(0, 99);
+		newLL.addToBack(76);
 		System.out.println("Total Number of Elements in Linked List is ");
 		System.out.println(newLL.numElements);
 		node tnode = newLL.head;
