@@ -65,6 +65,25 @@ public class linkedList {
 		}
 	}
 
+	//Find if a particular value is present in the Linked List 
+	public boolean isinLL(int value) {
+		if (value == this.head.value) {
+			return true;
+
+		}
+		else{ 
+			this.current = this.head;
+			while(this.current.next != null) {
+				if(this.current.value == value) {					
+					return true;
+				}else {
+					this.current = this.current.next;
+				}	
+			}
+		}
+		return false;
+	}
+
 	//Delete Node from a particular Index
 	public void delfromIndex(int ind) {
 
@@ -85,8 +104,36 @@ public class linkedList {
 			this.last.next = this.current.next; 
 			this.numElements--;
 		}
-		
+
 	}
+	//Find Length of the list using Iterative approach
+	public int lengthIter() {
+		if (this.head == null){
+			return 0;}else {
+				int len = 1;
+				this.current = this.head;
+				while(this.current.next != null) {
+					this.current = this.current.next;
+					len++;
+				}
+				return len ;
+			}
+	}
+	//Find length of Linked list using Recursive approach
+	public static int lengthRecur(node tnode) {
+		//Base Case
+		if (tnode == null){
+			return 0;}
+
+		else { //Recursive Case
+			return 1 +  lengthRecur(tnode.next);
+
+		}		 
+
+	}
+
+
+
 	public static void main(String[] args) {
 		int count = 0;
 		linkedList newLL = new linkedList();		
@@ -100,25 +147,36 @@ public class linkedList {
 		newLL.addAtIndex(0, 99);
 		newLL.addAtIndex(5, 101);
 		newLL.addAtIndex(5, 102);
-		
 		newLL.delfromIndex(5);
 		newLL.delfromIndex(1);
 		newLL.addAtIndex(5, 102);
 		newLL.addAtIndex(0, 99);
-		newLL.addToBack(76);
+		newLL.addToBack(76); 
+
 		System.out.println("Total Number of Elements in Linked List is ");
+		//Length of List - Class variable
 		System.out.println(newLL.numElements);
-		node tnode = newLL.head;
-		System.out.println("Below are the elements ");
-		while (count != newLL.numElements){
-			if (count == 0) {			
-				System.out.println(tnode.value);
-			}else {
-				tnode = tnode.next;
-				System.out.println(tnode.value);	  
+		//Length of Linked List - Iterative approach
+		System.out.println(newLL.lengthIter());
+		//Length of Linked List - Recursive approach
+		System.out.println(lengthRecur(newLL.head));
+
+		if (newLL.numElements > 0){
+			System.out.println("Printing Linked List elements - ");
+			node tnode = newLL.head;
+			while (count != newLL.numElements){
+				if (count == 0) {			
+					System.out.println(tnode.value);
+				}else {
+					tnode = tnode.next;
+					System.out.println(tnode.value);	  
+				}
+				count++;
 			}
-			count++;
 		}
+		System.out.println(newLL.isinLL(5)); 
+		System.out.println(newLL.isinLL(9)); 
+		System.out.println(newLL.isinLL(102)); 
 	}
 
 }
